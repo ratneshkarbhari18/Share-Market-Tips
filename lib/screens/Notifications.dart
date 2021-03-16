@@ -22,7 +22,7 @@ class _NotificationsState extends State<Notifications> {
     var resBody = jsonDecode(notifsObj);
     var notifications = resBody["notifications"];
     setState(() {
-      fiveNotifs = notifications.take(5);
+      fiveNotifs = notifications;
     });
     return fiveNotifs;
   }
@@ -43,7 +43,7 @@ class _NotificationsState extends State<Notifications> {
         appBar: AppBarTemplate("Notifications"),
         body: SingleChildScrollView(
           child: Column(children: [
-            ListView.builder(
+            (fiveNotifs==null) ? Center(child: CircularProgressIndicator()) : ListView.builder(
               shrinkWrap: true,
               physics: ScrollPhysics(),
               itemCount: fiveNotifs.length,

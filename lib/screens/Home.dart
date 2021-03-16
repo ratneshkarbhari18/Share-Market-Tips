@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
             ),
             Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: ListView.builder(
+                child: (fiveNotifs==null) ? CircularProgressIndicator() : ListView.builder(
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 5,
