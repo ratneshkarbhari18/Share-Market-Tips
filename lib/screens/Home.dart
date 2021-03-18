@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_market_tips/utils/Constants.dart';
 import '../templates/AppBarTemplate.dart';
 import '../templates/DrawerTemplate.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,7 +16,7 @@ class _HomeState extends State<Home> {
 
   Future fetchLatestFiveNotif() async {
     var url =
-        "https://codesevaco.tech/share_market_app_backend/jaldi-five-notif-fetch";
+        Constants.apiUrl+"/jaldi-five-notif-fetch";
     var apiKey = "5f4dbf2e5629d8cc19e7d51874266678";
     var params = {'api_key': apiKey};
     var res = await http.post(url, body: params);
@@ -26,7 +27,7 @@ class _HomeState extends State<Home> {
       fiveNotifs = notifications;
     });
     print(fiveNotifs);
-    // return fiveNotifs;
+    return fiveNotifs;
   }
 
   @override
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
                 child: (fiveNotifs==null) ? CircularProgressIndicator() : ListView.builder(
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: (fiveNotifs.length<5)?fiveNotifs.length:5,
                     itemBuilder: (context, index) {
                       return Card(
                         color: Colors.indigo,
@@ -105,7 +106,15 @@ class _HomeState extends State<Home> {
                                   "Stop Loss Price: ₹ " +
                                       fiveNotifs[index]["stop_loss"],
                                   style: TextStyle(
-                                      fontSize: 15.0, color: Colors.white)),
+                                      fontSize: 15.0, color: Colors.white)
+                              ),
+                              Text(
+                                "Date: " +
+                                    fiveNotifs[index]["date"],
+                                style: TextStyle(
+                                    fontSize: 15.0, color: Colors.white
+                                )
+                              ),
                             ],
                           ),
                         ),

@@ -12,10 +12,10 @@ class DrawerTemplate extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          UserAccountsDrawerHeader(
-            accountName: Text("Ratnesh Karbhari"),
-            accountEmail: Text("ratneshkarbhari23@gmail.com"),
-          ),
+          // UserAccountsDrawerHeader(
+          //   accountName: Text("Ratnesh Karbhari"),
+          //   accountEmail: Text("ratneshkarbhari23@gmail.com"),
+          // ),
           ListTile(
             title: Text("Login"),
             onTap: (){

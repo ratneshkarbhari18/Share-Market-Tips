@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_market_tips/utils/Constants.dart';
 import '../templates/AppBarTemplate.dart';
 import '../templates/DrawerTemplate.dart';
 import 'dart:convert';
@@ -14,7 +15,7 @@ class _NotificationsState extends State<Notifications> {
 
   Future fetchLatestFiveNotif() async {
     var url =
-        "https://codesevaco.tech/share_market_app_backend/jaldi-five-notif-fetch";
+        Constants.apiUrl+"/jaldi-five-notif-fetch";
     var apiKey = "5f4dbf2e5629d8cc19e7d51874266678";
     var params = {'api_key': apiKey};
     var res = await http.post(url, body: params);
@@ -77,7 +78,14 @@ class _NotificationsState extends State<Notifications> {
                               "Stop Loss Price: ₹ " +
                                   fiveNotifs[index]["stop_loss"],
                               style: TextStyle(
-                                  fontSize: 15.0, color: Colors.white)),
+                                  fontSize: 15.0, color: Colors.white)
+                          ),
+                          Text(
+                            "Date: " +
+                                fiveNotifs[index]["date"],
+                            style: TextStyle(
+                                fontSize: 15.0, color: Colors.white)
+                          ),
                         ],
                       ),
                     ),
