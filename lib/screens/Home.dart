@@ -122,6 +122,22 @@ class _HomeState extends State<Home> {
                     }))
           ]),
         ),
+        bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Plans',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_box),
+            label: 'Account',
+          ),
+        ],
+      ),
       ),
     );
   }
