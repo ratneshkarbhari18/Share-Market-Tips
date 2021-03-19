@@ -4,6 +4,8 @@ import '../templates/AppBarTemplate.dart';
 import '../templates/DrawerTemplate.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Notifications extends StatefulWidget {
   @override
@@ -12,6 +14,22 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> {
   var fiveNotifs;
+
+  var firstName;
+  var lastName;
+  var email;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
+  Future<void> _incrementCounter() async {
+    final SharedPreferences prefs = await _prefs;
+    setState(() {
+      firstName = prefs.getString("first_name");
+      lastName = prefs.getString("last_name");
+      email = prefs.getString("email");
+    });
+  }
 
   Future fetchLatestFiveNotif() async {
     var url =
@@ -32,6 +50,7 @@ class _NotificationsState extends State<Notifications> {
   void initState() {
     super.initState();
     fetchLatestFiveNotif();
+    _incrementCounter();
   }
 
 
@@ -40,7 +59,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: DrawerTemplate(),
+        drawer: DrawerTemplate(firstName,lastName,email),
         appBar: AppBarTemplate("Notifications"),
         body: SingleChildScrollView(
           child: Column(children: [

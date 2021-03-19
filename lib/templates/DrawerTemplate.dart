@@ -7,15 +7,22 @@ import '../screens/MyProfile.dart';
 
 
 class DrawerTemplate extends StatelessWidget {
+
+  final firstName;
+  final lastName;
+  final email;
+
+  DrawerTemplate(this.firstName,this.lastName,this.email);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: [
-          // UserAccountsDrawerHeader(
-          //   accountName: Text("Ratnesh Karbhari"),
-          //   accountEmail: Text("ratneshkarbhari23@gmail.com"),
-          // ),
+          UserAccountsDrawerHeader(
+            accountName: Text(this.firstName),
+            accountEmail: Text(this.email),
+          ),
           ListTile(
             title: Text("Login"),
             onTap: (){

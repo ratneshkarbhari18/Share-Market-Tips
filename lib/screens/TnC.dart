@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../templates/AppBarTemplate.dart';
 import '../templates/DrawerTemplate.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class TnC extends StatefulWidget {
   @override
@@ -8,11 +10,34 @@ class TnC extends StatefulWidget {
 }
 
 class _TnCState extends State<TnC> {
+
+  var firstName;
+  var lastName;
+  var email;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
+  Future<void> _incrementCounter() async {
+    final SharedPreferences prefs = await _prefs;
+    setState(() {
+      firstName = prefs.getString("first_name");
+      lastName = prefs.getString("last_name");
+      email = prefs.getString("email");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _incrementCounter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: DrawerTemplate(),
+        drawer: DrawerTemplate(firstName,lastName,email),
         appBar: AppBarTemplate("Terms & Conditions"),
         body: SingleChildScrollView(
           child: Padding(

@@ -5,6 +5,8 @@ import '../templates/DrawerTemplate.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -13,6 +15,22 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var fiveNotifs;
+
+  var firstName;
+  var lastName;
+  var email;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+
+  Future<void> _incrementCounter() async {
+    final SharedPreferences prefs = await _prefs;
+    setState(() {
+      firstName = prefs.getString("first_name");
+      lastName = prefs.getString("last_name");
+      email = prefs.getString("email");
+    });
+  }
 
   Future fetchLatestFiveNotif() async {
     var url =
@@ -26,7 +44,6 @@ class _HomeState extends State<Home> {
     setState(() {
       fiveNotifs = notifications;
     });
-    print(fiveNotifs);
     return fiveNotifs;
   }
 
@@ -34,6 +51,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     fetchLatestFiveNotif();
+    _incrementCounter();
   }
 
   final List<String> carouselImgList = [
@@ -45,11 +63,13 @@ class _HomeState extends State<Home> {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
 
+  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: DrawerTemplate(),
+        drawer: DrawerTemplate(firstName,lastName,email),
         appBar: AppBarTemplate("Home"),
         body: SingleChildScrollView(
           child: Column(children: [
