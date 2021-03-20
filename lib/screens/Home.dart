@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 
-  Future<void> _incrementCounter() async {
+  Future<void> _setUserState() async {
     final SharedPreferences prefs = await _prefs;
     setState(() {
       firstName = prefs.getString("first_name");
@@ -31,6 +31,202 @@ class _HomeState extends State<Home> {
       email = prefs.getString("email");
     });
   }
+
+  
+  @override
+  void initState() {
+    super.initState();
+    _setUserState();
+  }
+
+  
+
+  static  List<Widget> _botttomNavBodies = <Widget>[
+    HomePageBody(),PlansBody(),MyProfilePage()
+  ];
+
+  static  List _botttomNavBodiesTitles = [
+    "Home","Plans","Profile"
+  ];
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        drawer: DrawerTemplate(firstName,lastName,email),
+        appBar: AppBarTemplate(_botttomNavBodiesTitles.elementAt(_selectedIndex)),
+        body: _botttomNavBodies.elementAt(_selectedIndex),
+        bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Plans',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_box),
+            label: 'Account',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.pink,
+        onTap: _onItemTapped,
+      ),
+      ),
+    );
+  }
+}
+
+
+class MyProfilePage extends StatefulWidget {
+  @override
+  _MyProfilePageState createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+
+  final firstNameController = new TextEditingController();
+  final lastNameController = new TextEditingController();
+  final emailController = new TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+          children: [
+            TextField(
+              controller: firstNameController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: "First Name",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                )
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              controller: lastNameController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: "Last Name",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                )
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            TextField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                )
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            MaterialButton(
+              height: 50.0,
+              minWidth: double.maxFinite,
+              onPressed: () {},
+              color: Colors.indigo,
+              child: Text("UPDATE PROFILE",style: TextStyle(color: Colors.white,fontSize: 16.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PlansBody extends StatefulWidget {
+  @override
+  _PlansBodyState createState() => _PlansBodyState();
+}
+
+class _PlansBodyState extends State<PlansBody> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+          child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                      child: Column(
+              children: [
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text("Plan 1", style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam ", style: TextStyle(fontSize: 16.0)),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text("Plan 2", style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam ", style: TextStyle(fontSize: 16.0)),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text("Plan 3", style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam ", style: TextStyle(fontSize: 16.0)),
+                SizedBox(
+                  height: 10.0,
+                ),
+              ],
+            ),
+          )
+        );
+  }
+}
+
+
+class HomePageBody extends StatefulWidget {
+  
+  @override
+  _HomePageBodyState createState() => _HomePageBodyState();
+}
+
+
+class _HomePageBodyState extends State<HomePageBody> {
+  final List<String> carouselImgList = [
+    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
+    'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+    'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
+    'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
+    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+  ];
+
+  var fiveNotifs;
 
   Future fetchLatestFiveNotif() async {
     var url =
@@ -51,27 +247,11 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     fetchLatestFiveNotif();
-    _incrementCounter();
   }
-
-  final List<String> carouselImgList = [
-    'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-    'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-    'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-    'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-    'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-  ];
-
-  
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        drawer: DrawerTemplate(firstName,lastName,email),
-        appBar: AppBarTemplate("Home"),
-        body: SingleChildScrollView(
+    return SingleChildScrollView(
           child: Column(children: [
             CarouselSlider(
               options: CarouselOptions(viewportFraction: 1),
@@ -141,24 +321,6 @@ class _HomeState extends State<Home> {
                       );
                     }))
           ]),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Plans',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
-            label: 'Account',
-          ),
-        ],
-      ),
-      ),
-    );
+        );
   }
 }

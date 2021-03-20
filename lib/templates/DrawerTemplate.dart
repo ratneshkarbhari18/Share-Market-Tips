@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import '../screens/Login.dart';
-import '../screens/Home.dart';
 import '../screens/Notifications.dart';
 import '../screens/TnC.dart';
-import '../screens/MyProfile.dart';
-
+import '../screens/Contact.dart';
 
 class DrawerTemplate extends StatelessWidget {
 
@@ -20,31 +17,21 @@ class DrawerTemplate extends StatelessWidget {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(this.firstName),
+            accountName: Text(this.firstName+" "+this.lastName),
             accountEmail: Text(this.email),
           ),
-          ListTile(
-            title: Text("Login"),
-            onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> Login()));
-            },
-          ),
-          ListTile(
-            title: Text("MyProfile"),
-            onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> MyProfile()));
-            },
-          ),
-          ListTile(
-            title: Text("Home"),
-            onTap: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> Home()));
-            },
-          ),
+          
+          
           ListTile(
             title: Text("Notifications"),
             onTap: (){
               Navigator.push(context,MaterialPageRoute(builder: (context)=> Notifications()));
+            },
+          ),
+          ListTile(
+            title: Text("Contact"),
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context)=> Contact()));
             },
           ),
           ListTile(
