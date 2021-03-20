@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import '../utils/Constants.dart';
 import 'dart:convert';
 import './Home.dart';
+import './Register.dart';
 
 
 class Login extends StatefulWidget {
@@ -79,47 +80,55 @@ class _LoginState extends State<Login> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
                 children: [
-              Image.asset("assets/images/insider_logo.jpeg"),
-              Text(loginError,style: TextStyle(color: Colors.red, fontSize: 16.0)),
-              SizedBox(height: 20.0,),
-              TextField(
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                    )),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                obscureText: hidePwd,
-                controller: passwordController,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      icon: Icon(visibilityIcon),
-                      onPressed: showHidePwd,
-                    ),
-                    labelText: "Password",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                    )),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              MaterialButton(
-                height: 50.0,
-                minWidth: double.maxFinite,
-                onPressed: loginExe,
-                color: Colors.indigo,
-                child: Text("LOGIN",style: TextStyle(color: Colors.white,fontSize: 16.0)),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-              ),
-              
+                Image.asset("assets/images/insider_logo.jpeg"),
+                Text(loginError,style: TextStyle(color: Colors.red, fontSize: 16.0)),
+                SizedBox(height: 20.0,),
+                TextField(
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      )),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextField(
+                  obscureText: hidePwd,
+                  controller: passwordController,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(visibilityIcon),
+                        onPressed: showHidePwd,
+                      ),
+                      labelText: "Password",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      )),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                MaterialButton(
+                  height: 50.0,
+                  minWidth: double.maxFinite,
+                  onPressed: loginExe,
+                  color: Colors.indigo,
+                  child: Text("LOGIN",style: TextStyle(color: Colors.white,fontSize: 16.0)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                ),
+                SizedBox(height: 30.0,),
+                Text("Not a Member yet?"),
+                SizedBox(height: 10.0,),
+                GestureDetector(
+                  child: Text("Register Here", style: TextStyle(fontSize: 16.0, color: Colors.pink)),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Register()));
+                  },
+                )
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/Notifications.dart';
 import '../screens/TnC.dart';
 import '../screens/Contact.dart';
+import '../screens/Home.dart';
 
 class DrawerTemplate extends StatelessWidget {
 
@@ -20,8 +21,12 @@ class DrawerTemplate extends StatelessWidget {
             accountName: Text(this.firstName+" "+this.lastName),
             accountEmail: Text(this.email),
           ),
-          
-          
+          ListTile(
+            title: Text("Home"),
+            onTap: (){
+              Navigator.push(context,MaterialPageRoute(builder: (context)=> Home()));
+            },
+          ),
           ListTile(
             title: Text("Notifications"),
             onTap: (){
