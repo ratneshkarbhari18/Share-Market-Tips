@@ -235,20 +235,17 @@ class _HomePageBodyState extends State<HomePageBody> {
         onMessage: (Map<String, dynamic> message) async {
       print(message);
       setState(() => pushNotifMessage = message["notification"]["body"]);
+      _showNotification(message["notification"]["title"],message["notification"]["body"]);
     }, onResume: (Map<String, dynamic> message) async {
       print('on resume $message');
       setState(() => pushNotifMessage = message["notification"]["body"]);
+      _showNotification(message["notification"]["title"],message["notification"]["body"]);
     }, onLaunch: (Map<String, dynamic> message) async {
       print('on launch $message');
       setState(() => pushNotifMessage = message["notification"]["body"]);
+      _showNotification(message["notification"]["title"],message["notification"]["body"]);
     });
   }
-
-  // Creating a notification
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
-
-  
 
 
   final List<String> carouselImgList = [
@@ -277,12 +274,29 @@ class _HomePageBodyState extends State<HomePageBody> {
     return fiveNotifs;
   }
 
+    // Creating a notification
+  FlutterLocalNotificationsPlugin localNotification;
+
   @override
   void initState() {
+    var androidInitialize = new AndroidInitializationSettings("app_icon");
+    var iosInitializa = new IOSInitializationSettings();
+    var intiailizationSettings = new InitializationSettings(android: androidInitialize, iOS: iosInitializa);
+    localNotification = new FlutterLocalNotificationsPlugin();
+    localNotification.initialize(intiailizationSettings);
     _registerOnFirebase();
     getMessage();
     fetchLatestFiveNotif();
+    
     super.initState();
+  }
+
+  Future _showNotification(title,body) async{
+    var androidDetails = new AndroidNotificationDetails("general_tips", "Share Market Tips", "General Share Market Tips for All");
+    var iosDetails = new IOSNotificationDetails();
+    var generalNotifDetails = new NotificationDetails(android: androidDetails,iOS: iosDetails);
+    await localNotification.show(0, title, body, generalNotifDetails);
+
   }
 
   @override
@@ -299,10 +313,7 @@ class _HomePageBodyState extends State<HomePageBody> {
             SizedBox(
               height: 10.0,
             ),
-            Text(pushNotifMessage),
-            SizedBox(
-              height: 10.0,
-            ),
+            
             Text(
               "Today's Tips",
               style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
