@@ -233,16 +233,10 @@ class _HomePageBodyState extends State<HomePageBody> {
   void getMessage() {
     _firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message) async {
-      print(message);
-      setState(() => pushNotifMessage = message["notification"]["body"]);
       _showNotification(message["notification"]["title"],message["notification"]["body"]);
     }, onResume: (Map<String, dynamic> message) async {
-      print('on resume $message');
-      setState(() => pushNotifMessage = message["notification"]["body"]);
       _showNotification(message["notification"]["title"],message["notification"]["body"]);
     }, onLaunch: (Map<String, dynamic> message) async {
-      print('on launch $message');
-      setState(() => pushNotifMessage = message["notification"]["body"]);
       _showNotification(message["notification"]["title"],message["notification"]["body"]);
     });
   }
