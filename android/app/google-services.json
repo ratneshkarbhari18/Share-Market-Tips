@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "406627259636",
+    "project_id": "share-market-app-notifs",
+    "storage_bucket": "share-market-app-notifs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406627259636:android:2a7671cba6329235933aa1",
+        "android_client_info": {
+          "package_name": "tech.codesevaco.share_market_tips"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406627259636-cj6s8tg6uegev30stdajft6e6ue351th.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjaJ_IznaJzK6J7OIM4yLind5KnrfAWwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406627259636-cj6s8tg6uegev30stdajft6e6ue351th.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

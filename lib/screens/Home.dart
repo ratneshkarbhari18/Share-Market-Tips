@@ -6,6 +6,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 
 
 class Home extends StatefulWidget {
@@ -217,6 +220,37 @@ class HomePageBody extends StatefulWidget {
 
 
 class _HomePageBodyState extends State<HomePageBody> {
+
+  var pushNotifMessage = "";
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
+  _registerOnFirebase() {
+    _firebaseMessaging.subscribeToTopic('all');
+    _firebaseMessaging.getToken().then((token) => print(token));
+  }
+
+  void getMessage() {
+    _firebaseMessaging.configure(
+        onMessage: (Map<String, dynamic> message) async {
+      print(message);
+      setState(() => pushNotifMessage = message["notification"]["body"]);
+    }, onResume: (Map<String, dynamic> message) async {
+      print('on resume $message');
+      setState(() => pushNotifMessage = message["notification"]["body"]);
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print('on launch $message');
+      setState(() => pushNotifMessage = message["notification"]["body"]);
+    });
+  }
+
+  // Creating a notification
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+  
+
+
   final List<String> carouselImgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -245,8 +279,10 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   @override
   void initState() {
-    super.initState();
+    _registerOnFirebase();
+    getMessage();
     fetchLatestFiveNotif();
+    super.initState();
   }
 
   @override
@@ -260,6 +296,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                       fit: BoxFit.cover, width: 1000))
                   .toList(),
             ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(pushNotifMessage),
             SizedBox(
               height: 10.0,
             ),
