@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import './NotificationDetailPage.dart';
 
 
 
@@ -322,45 +323,50 @@ class _HomePageBodyState extends State<HomePageBody> {
                     shrinkWrap: true,
                     itemCount: (fiveNotifs.length<5)?fiveNotifs.length:5,
                     itemBuilder: (context, index) {
-                      return Card(
-                        color: Colors.indigo,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ListView(
-                            physics: ScrollPhysics(),
-                            shrinkWrap: true,
-                            children: [
-                              Text(
-                                fiveNotifs[index]["name"],
-                                style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                  "Market Price: ₹ " +
-                                      fiveNotifs[index]["market_price"],
+                      return GestureDetector(
+                          onTap: (){
+                            Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationDetailPage(fiveNotifs[index])));
+                          },
+                          child: Card(
+                          color: Colors.indigo,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: ListView(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              children: [
+                                Text(
+                                  fiveNotifs[index]["name"],
                                   style: TextStyle(
-                                      fontSize: 15.0, color: Colors.white)),
-                              Text(
-                                  "Buy Price: ₹ " +
-                                      fiveNotifs[index]["buy_price"],
-                                  style: TextStyle(
-                                      fontSize: 15.0, color: Colors.white)),
-                              Text(
-                                  "Stop Loss Price: ₹ " +
-                                      fiveNotifs[index]["stop_loss"],
-                                  style: TextStyle(
-                                      fontSize: 15.0, color: Colors.white)
-                              ),
-                              Text(
-                                "Date: " +
-                                    fiveNotifs[index]["date"],
-                                style: TextStyle(
-                                    fontSize: 15.0, color: Colors.white
-                                )
-                              ),
-                            ],
+                                      fontSize: 20.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                    "Market Price: ₹ " +
+                                        fiveNotifs[index]["market_price"],
+                                    style: TextStyle(
+                                        fontSize: 15.0, color: Colors.white)),
+                                // Text(
+                                //     "Buy Price: ₹ " +
+                                //         fiveNotifs[index]["buy_price"],
+                                //     style: TextStyle(
+                                //         fontSize: 15.0, color: Colors.white)),
+                                // Text(
+                                //     "Stop Loss Price: ₹ " +
+                                //         fiveNotifs[index]["stop_loss"],
+                                //     style: TextStyle(
+                                //         fontSize: 15.0, color: Colors.white)
+                                // ),
+                                // Text(
+                                //   "Date: " +
+                                //       fiveNotifs[index]["date"],
+                                //   style: TextStyle(
+                                //       fontSize: 15.0, color: Colors.white
+                                //   )
+                                // ),
+                              ],
+                            ),
                           ),
                         ),
                       );

@@ -5,6 +5,7 @@ import '../templates/DrawerTemplate.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import './NotificationDetailPage.dart';
 
 
 class Notifications extends StatefulWidget {
@@ -68,44 +69,50 @@ class _NotificationsState extends State<Notifications> {
               physics: ScrollPhysics(),
               itemCount: fiveNotifs.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Card(
-                    color: Colors.indigo,
+                return GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationDetailPage(fiveNotifs[index])));
+                    },
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: ListView(
-                        physics: ScrollPhysics(),
-                        shrinkWrap: true,
-                        children: [
-                          Text(
-                            fiveNotifs[index]["name"],
-                            style: TextStyle(
-                                fontSize: 20.0, color: Colors.white,fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                              "Market Price: ₹ " +
-                                  fiveNotifs[index]["market_price"],
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      color: Colors.indigo,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: ListView(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          children: [
+                            Text(
+                              fiveNotifs[index]["name"],
                               style: TextStyle(
-                                  fontSize: 15.0, color: Colors.white)),
-                          Text(
-                              "Buy Price: ₹ " +
-                                  fiveNotifs[index]["buy_price"],
-                              style: TextStyle(
-                                  fontSize: 15.0, color: Colors.white)),
-                          Text(
-                              "Stop Loss Price: ₹ " +
-                                  fiveNotifs[index]["stop_loss"],
-                              style: TextStyle(
-                                  fontSize: 15.0, color: Colors.white)
-                          ),
-                          Text(
-                            "Date: " +
-                                fiveNotifs[index]["date"],
-                            style: TextStyle(
-                                fontSize: 15.0, color: Colors.white)
-                          ),
-                        ],
+                                  fontSize: 20.0, color: Colors.white,fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                                "Market Price: ₹ " +
+                                    fiveNotifs[index]["market_price"],
+                                style: TextStyle(
+                                    fontSize: 15.0, color: Colors.white)),
+                            Text(
+                                "Buy Price: ₹ " +
+                                    fiveNotifs[index]["buy_price"],
+                                style: TextStyle(
+                                    fontSize: 15.0, color: Colors.white)
+                            ),
+                            // Text(
+                            //     "Stop Loss Price: ₹ " +
+                            //         fiveNotifs[index]["stop_loss"],
+                            //     style: TextStyle(
+                            //         fontSize: 15.0, color: Colors.white)
+                            // ),
+                            // Text(
+                            //   "Date: " +
+                            //       fiveNotifs[index]["date"],
+                            //   style: TextStyle(
+                            //       fontSize: 15.0, color: Colors.white)
+                            // ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
