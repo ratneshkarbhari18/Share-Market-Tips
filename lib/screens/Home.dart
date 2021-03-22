@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:share_market_tips/utils/Constants.dart';
+import 'package:http/http.dart' as http;
 import '../templates/AppBarTemplate.dart';
 import '../templates/DrawerTemplate.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
